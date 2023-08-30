@@ -36,40 +36,56 @@ const slides = [
     }
 ];
 
-console.log(slides);
-
 const { createApp } = Vue
 
 createApp({
     data() {
-      return {
-        slides,
-        activeImg: 0,
-        autoplay: false,
-      }
+        return {
+            slides,
+            activeImg: 0,
+            autoplay: false,
+        }
     },
 
     methods: {
         goNext() {
-            if (this.activeImg < this.slides.length - 1) {
+            if (this.activeImg < this.slides.length - 1) {
                 this.activeImg++;
             } else {
 
                 this.activeImg = 0;
             }
         },
-            goBack() {
-                if (this.activeImg > 0) {
-                    this.activeImg--;
-                } else {
-                    this.activeImg = this.slides.length - 1;
-                }
-            },
+        goBack() {
+            if (this.activeImg > 0) {
+                this.activeImg--;
+            } else {
+                this.activeImg = this.slides.length - 1;
+            }
+        },
+        thumbClick(index) {
+
+            this.activeImg = index;
+        },
+
         setAutoplay() {
-            if(this.setAutoplay = false) {
-                this.setAutoplay(true)
+            if (!this.autoplay) {
+                this.autoplay = setInterval(() => {
+                    this.goNext();
+                }, 3000);
+            }
+        },
+
+        stopAutoplay() {
+            if (this.autoplay) {
+                clearInterval(this.autoplay);
+                this.autoplay = false;
             }
         }
+    },
+
+    created() {
+        this.setAutoplay()
     },
 }).mount('#app')
 
