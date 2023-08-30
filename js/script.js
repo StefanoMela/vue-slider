@@ -15,7 +15,7 @@ Bonus:
 const slides = [
     {
         image: 'img/01.webp',
-        title: 'Marvel\'s Spiderman Miles Morale',
+        title: 'Marvel\'s Spiderman Miles Morales',
         text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
     }, {
         image: 'img/02.webp',
@@ -43,10 +43,35 @@ const { createApp } = Vue
 createApp({
     data() {
       return {
-        image: slides[0].image,
-        title: slides[0].title,
-        text: slides[0].text,
+        slides,
+        activeImg: 0,
+        autoplay: false,
       }
-    }
+    },
+
+    methods: {
+        goNext() {
+            if (this.activeImg < this.slides.length - 1) {
+                this.activeImg++;
+            } else {
+
+                this.activeImg = 0;
+            }
+        },
+            goBack() {
+                if (this.activeImg > 0) {
+                    this.activeImg--;
+                } else {
+                    this.activeImg = this.slides.length - 1;
+                }
+            },
+        setAutoplay() {
+            if(this.setAutoplay = false) {
+                this.setAutoplay(true)
+            }
+        }
+    },
 }).mount('#app')
+
+
 
